@@ -36,20 +36,26 @@ export default function Roadmap() {
       tech: ["Next.js 15", "Tailwind CSS", "Debouncing"]
     },
     {
+      status: "COMPLETED",
+      title: "Phase 6: Identity Evolution & Writes",
+      desc: "Migrated Core DB from Integers to UUIDs (String Indexing). Added 'Create User' Write Ops, Modal UI, and solved pagination for random strings.",
+      tech: ["UUIDs", "String AVL Logic", "Write Ops", "UI Animations"]
+    },
+    {
       status: "UPCOMING",
-      title: "Phase 6: Garbage Collection",
+      title: "Phase 7: Garbage Collection",
       desc: "Implementing 'Delete' functionality using Tombstones and a Vacuum process to clean up disk space.",
       tech: ["Compaction", "Vacuuming", "Cron Jobs"]
     },
     {
       status: "UPCOMING",
-      title: "Phase 7: Binary Optimization",
+      title: "Phase 8: Binary Optimization",
       desc: "Moving from JSON text to Raw Binary Buffers (Bit-level manipulation) for 2x speed and 50% less storage.",
       tech: ["Buffers", "Binary Packing", "Bitwise Ops"]
     },
     {
       status: "UPCOMING",
-      title: "Phase 8: Secondary Indexing",
+      title: "Phase 9: Secondary Indexing",
       desc: "Ability to search by Name or Email, not just ID. Creating multiple index files.",
       tech: ["Multi-Index", "B-Tree Concept"]
     }

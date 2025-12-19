@@ -88,7 +88,7 @@ export default function UserProfile({ params }) {
       <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-cyan-600/10 rounded-full blur-[100px] pointer-events-none"></div>
 
       {/* 2. Top Right Timer */}
-      <ServerTimer time={`${data.time_ms || 0} ms`} />
+      {/* <ServerTimer time={`${data.time_ms || 0} ms`} /> */}
 
       {/* 3. The CARD Container */}
       <div className="relative w-full max-w-lg group">
