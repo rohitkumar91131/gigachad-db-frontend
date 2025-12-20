@@ -42,20 +42,26 @@ export default function Roadmap() {
       tech: ["UUIDs", "String AVL Logic", "Write Ops", "UI Animations"]
     },
     {
+      status: "COMPLETED", // 👈 UPDATED STATUS
+      title: "Phase 7: The Purge (Deletion)",
+      desc: "Implemented 'Soft Delete' mechanism. Removing nodes from AVL Tree (RAM) with complex rebalancing. Added 'Termination Protocol' UI with safety checks.",
+      tech: ["AVL Deletion", "Rebalancing", "Soft Delete", "UseRouter"]
+    },
+    {
       status: "UPCOMING",
-      title: "Phase 7: Garbage Collection",
-      desc: "Implementing 'Delete' functionality using Tombstones and a Vacuum process to clean up disk space.",
+      title: "Phase 8: Garbage Collection (Vacuum)",
+      desc: "Running a background process to permanently remove 'soft deleted' rows from the disk file to recover storage space.",
       tech: ["Compaction", "Vacuuming", "Cron Jobs"]
     },
     {
       status: "UPCOMING",
-      title: "Phase 8: Binary Optimization",
+      title: "Phase 9: Binary Optimization",
       desc: "Moving from JSON text to Raw Binary Buffers (Bit-level manipulation) for 2x speed and 50% less storage.",
       tech: ["Buffers", "Binary Packing", "Bitwise Ops"]
     },
     {
       status: "UPCOMING",
-      title: "Phase 9: Secondary Indexing",
+      title: "Phase 10: Secondary Indexing",
       desc: "Ability to search by Name or Email, not just ID. Creating multiple index files.",
       tech: ["Multi-Index", "B-Tree Concept"]
     }

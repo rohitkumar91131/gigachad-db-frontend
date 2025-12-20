@@ -1,20 +1,22 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Link from 'next/link'; // 👈 Import Link
+import Link from 'next/link';
 
 export default function CreateUserForm({ isOpen, onClose, onUserCreated }) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
   
-  // 🆕 New State: To store created user data
+  // State for success view
   const [createdUser, setCreatedUser] = useState(null);
+  const [executionTime, setExecutionTime] = useState(null); // 👈 New State for Time
 
-  // Jab modal khule, purana success state clear karo
+  // Reset states when modal opens
   useEffect(() => {
     if (isOpen) {
       setCreatedUser(null);
+      setExecutionTime(null);
       setName('');
       setEmail('');
     }
@@ -34,14 +36,14 @@ export default function CreateUserForm({ isOpen, onClose, onUserCreated }) {
         body: JSON.stringify({ name, email }),
       });
 
-      const data = await res.json(); // 👈 Response data parse karo
+      const data = await res.json(); 
 
       if (res.ok) {
-        // Parent ko refresh karo
         onUserCreated(); 
         
-        // 🆕 Form close mat karo, Success State set karo
+        // 🆕 Set User AND Time
         setCreatedUser(data.user); 
+        setExecutionTime(data.time_taken); // 👈 Capture time from backend
       } else {
         alert("Failed to create user");
       }
@@ -53,9 +55,9 @@ export default function CreateUserForm({ isOpen, onClose, onUserCreated }) {
     }
   }
 
-  // Helper to reset for adding another user
   const handleAddAnother = () => {
     setCreatedUser(null);
+    setExecutionTime(null);
     setName('');
     setEmail('');
   };
@@ -82,12 +84,21 @@ export default function CreateUserForm({ isOpen, onClose, onUserCreated }) {
               </div>
               
               <h2 className="text-2xl font-bold text-white mb-2">Entity Created</h2>
-              <p className="text-gray-400 text-sm mb-6">
+              
+              <p className="text-gray-400 text-sm mb-4">
                 <span className="text-cyan-400 font-mono">{createdUser.name}</span> has been successfully indexed in GigaDB.
               </p>
 
+              {/* 🔥 NEW: EXECUTION TIME DISPLAY 🔥 */}
+              {executionTime && (
+                <div className="bg-[#161618] border border-gray-800 rounded-lg px-4 py-2 mb-6 flex items-center gap-3">
+                   <span className="flex h-2 w-2 rounded-full bg-green-500 animate-pulse"></span>
+                   <span className="text-xs text-gray-400 uppercase tracking-widest font-bold">Write Latency:</span>
+                   <span className="text-green-400 font-mono font-bold text-sm">{executionTime.toFixed(4)} ms</span>
+                </div>
+              )}
+
               <div className="flex flex-col gap-3 w-full">
-                {/* View Profile Button */}
                 <Link href={`/${createdUser.id}`}>
                   <button className="w-full px-4 py-3 rounded-xl bg-gradient-to-r from-green-600 to-cyan-600 hover:from-green-500 hover:to-cyan-500 text-white font-bold shadow-lg shadow-green-900/20 transition flex items-center justify-center gap-2">
                     View Profile →
@@ -113,7 +124,7 @@ export default function CreateUserForm({ isOpen, onClose, onUserCreated }) {
 
           ) : (
 
-            // 📝 FORM VIEW
+            // 📝 FORM VIEW (Unchanged)
             <>
               <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
                 <span className="text-cyan-400">Add</span> New Entity
@@ -164,7 +175,6 @@ export default function CreateUserForm({ isOpen, onClose, onUserCreated }) {
               </form>
             </>
           )}
-          {/* --- CONDITIONAL RENDERING END --- */}
 
         </div>
       </div>
